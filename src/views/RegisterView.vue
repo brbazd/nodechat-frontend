@@ -33,7 +33,7 @@ function registerUser() {
     errors.value.push('Password is invalid')
   }
 
-  if (!errors.value) {
+  if (errors.value.length == 0) {
     axios.post(import.meta.env.VITE_API_URL + '/auth/register', form.value).then((res) => {
       if (res.status == 201) {
         router.push({ name: 'login' })

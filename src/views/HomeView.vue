@@ -42,7 +42,7 @@ const sidebarStore = useSidebarStore()
     <nav class="w-[320px] bg-[#121212] h-screen sm:flex flex-col justify-between hidden">
       <div>
         <CurrentUserInfo></CurrentUserInfo>
-        <span class="p-4 text-md font-semibold">List of Users</span>
+        <span class="p-4 text-md font-semibold">Most Recent Users</span>
         <ul class="w-full overflow-y-scroll">
           <li v-for="user in users">
             <UserListItem :user="user"></UserListItem>

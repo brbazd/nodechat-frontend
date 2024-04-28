@@ -30,7 +30,7 @@ function loginUser() {
 
   const { email, password } = form.value
 
-  if (!errors.value) {
+  if (errors.value.length == 0) {
     return authStore.login(email, password)
   }
 }
