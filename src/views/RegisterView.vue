@@ -33,10 +33,6 @@ function registerUser() {
     errors.value.push('Password is invalid')
   }
 
-  if (form.value.password == form.value.confirm_password) {
-    errors.value.push('Failed confirmation of password')
-  }
-
   if (!errors.value) {
     axios.post(import.meta.env.VITE_API_URL + '/auth/register', form.value).then((res) => {
       if (res.status == 201) {
