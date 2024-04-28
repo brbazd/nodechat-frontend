@@ -1,6 +1,8 @@
 # chatchat-frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+The frontend component of the Chatting application.
+
+You can find the backend component here: (https://github.com/brbazd/nodechat-backend)
 
 ## Recommended IDE Setup
 
