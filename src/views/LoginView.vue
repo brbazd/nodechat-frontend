@@ -12,15 +12,27 @@ const form = ref({
   password: ''
 })
 
+const errors = ref([])
+
 function loginUser() {
-  //   username.value = username.value.trim()
-  //   email.value = email.value.trim()
-  //   password.value = password.value.trim()
-  //   confirm_password.value = confirm_password.value.trim()
+  errors.value = []
+
+  form.value.email = form.value.email.trim()
+  form.value.password = form.value.password.trim()
+
+  if (!form.value.email && !form.value.email.match('^@$')) {
+    errors.value.push('Email is invalid')
+  }
+
+  if (!form.value.password) {
+    errors.value.push('Password is invalid')
+  }
 
   const { email, password } = form.value
 
-  return authStore.login(email, password)
+  if (!errors.value) {
+    return authStore.login(email, password)
+  }
 }
 </script>
 
@@ -30,6 +42,11 @@ function loginUser() {
       class="bg-[#121212] text-neutral-400 rounded-lg sm:w-72 sm:h-auto h-full w-full p-8 border border-[#444444]"
     >
       <h1 class="font-bold text-4xl text-white py-4 text-center">Login</h1>
+      <div>
+        <p v-for="error in errors" class="text-red-600 text-sm p-2">
+          {{ error }}
+        </p>
+      </div>
       <form @submit.prevent="loginUser">
         <div class="flex flex-col gap-2">
           <div>

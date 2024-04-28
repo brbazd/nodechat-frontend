@@ -20,11 +20,9 @@ function sendMessage(e) {
     e.preventDefault()
 
     if (content.value.trim() != '' && content.value != '') {
-      // console.log(content.value)
       let message = content.value.trim()
       let from = authStore.user
       const { email, ...author } = from
-      // console.log(author)
       socket.emit('message', {
         data: { content: message, author: author }
       })

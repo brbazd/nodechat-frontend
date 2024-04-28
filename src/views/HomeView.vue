@@ -13,29 +13,26 @@ import { useSidebarStore } from '../stores/sidebar.store.js'
 
 const users = ref({})
 
-axios.get('http://localhost:3000/users').then((res) => {
+axios.get(import.meta.env.VITE_API_URL + '/users').then((res) => {
   if (res.status == 200) {
     users.value = res.data
-    console.log(users)
   }
 })
 
 const conversation = ref([])
 
-axios.get('http://localhost:3000/messages').then((res) => {
-  conversation.value = res.data
+axios.get(import.meta.env.VITE_API_URL + '/messages').then((res) => {
+  conversation.value = res.data.reverse()
 })
 
 socket.on('message', ({ data }) => {
-  console.log(data)
   let message = data
   conversation.value.push(message)
-  console.log(conversation.value)
 })
 
-socket.on('connected', ({ data }) => {
-  console.log(data)
-})
+// socket.on('connected', ({ data }) => {
+//   console.log(data)
+// })
 
 const sidebarStore = useSidebarStore()
 </script>

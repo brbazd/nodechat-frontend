@@ -11,13 +11,11 @@ export const useAuthStore = defineStore({
   }),
   actions: {
     async login(email, password) {
-      console.log({ email, password })
       const res = await axios.post(import.meta.env.VITE_API_URL + '/auth/login', {
         email,
         password
       })
       if (res.status == 201) {
-        console.log(res)
         const user = res.data.User
         this.user = user
 

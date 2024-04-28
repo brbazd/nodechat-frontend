@@ -10,18 +10,40 @@ const form = ref({
   confirm_password: ''
 })
 
-function registerUser() {
-  console.log(form.value.username)
-  //   username.value = username.value.trim()
-  //   email.value = email.value.trim()
-  //   password.value = password.value.trim()
-  //   confirm_password.value = confirm_password.value.trim()
+const errors = ref([])
 
-  axios.post(import.meta.env.API_URL + '/auth/register', form.value).then((res) => {
-    if (res.status == 201) {
-      router.push({ name: 'login' })
-    }
-  })
+function registerUser() {
+  errors.value = []
+
+  form.value.username = form.value.username.trim()
+  form.value.email = form.value.email.trim()
+  form.value.password = form.value.password.trim()
+  form.value.confirm_password = form.value.confirm_password.trim()
+
+  if (!form.value.username) {
+    console.log(!form.value.username)
+    errors.value.push('Username is invalid')
+  }
+
+  if (!form.value.email && !form.value.email.match('^@$')) {
+    errors.value.push('Email is invalid')
+  }
+
+  if (!form.value.password) {
+    errors.value.push('Password is invalid')
+  }
+
+  if (form.value.password == form.value.confirm_password) {
+    errors.value.push('Failed confirmation of password')
+  }
+
+  if (!errors.value) {
+    axios.post(import.meta.env.VITE_API_URL + '/auth/register', form.value).then((res) => {
+      if (res.status == 201) {
+        router.push({ name: 'login' })
+      }
+    })
+  }
 }
 </script>
 
@@ -31,6 +53,11 @@ function registerUser() {
       class="bg-[#121212] text-neutral-400 rounded-lg sm:w-72 sm:h-auto h-full w-full p-8 border border-[#444444]"
     >
       <h1 class="text-white font-bold text-4xl my-4 text-center">Register</h1>
+      <div>
+        <p v-for="error in errors" class="text-red-600 text-sm p-2">
+          {{ error }}
+        </p>
+      </div>
       <form @submit.prevent="registerUser">
         <div class="flex flex-col gap-4">
           <div>

@@ -22,7 +22,6 @@ app.use(router)
 
 if (authStore.user) {
   socket.connect()
-  console.log(socket.rooms)
 }
 
 app.mount('#app')

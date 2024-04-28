@@ -5,8 +5,6 @@ import { useAuthStore } from '../stores/auth.store'
 
 const authStore = useAuthStore()
 const { user: authUser } = storeToRefs(authStore)
-
-console.log(authStore.user)
 </script>
 <template>
   <div class="flex items-center gap-2 p-4 justify-between">
